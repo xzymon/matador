@@ -43,7 +43,7 @@ import {ExampleHeader} from "./cal/example.component";
   providers: [
     {
       provide: MAT_DATE_LOCALE,
-      useValue: pl,
+      useValue: {}
     },
   ],
   bootstrap: [AppComponent]

@@ -26,30 +26,33 @@ const dateInputFormat = 'DD/MM/YYYY';
 
 export const MY_DATE_FORMATS: MatDateFormats = {
   parse: {
-    dateInput: dateInputFormat
+    dateInput: "dd/MM/yyyy"
   },
   display: {
-    dateInput: dateInputFormat,
-    monthLabel: 'MMM',
-    monthYearLabel: 'yyyy',
+    dateInput: "dd/MM/yyyy",
+    monthLabel: 'LLLL',
+    monthYearLabel: 'MMM',
     dateA11yLabel: 'yyyy',
     monthYearA11yLabel: 'yyyy'
   },
 };
 
 class PickerDateAdapter extends DateFnsAdapter {
-  override format(date: Date, displayFormat: Object): string {
-    console.log('PickerDateAdapter: date & displayFormat');
-    console.log(date);
+  override format(date: Date, displayFormat: string): string {
+    //console.log('PickerDateAdapter: date & displayFormat');
+    //console.log(date);
     console.log(displayFormat);
     console.log(this);
     if (displayFormat === 'input') {
-      const ret = format(date,dateInputFormat,{locale : pl});
-      console.log('return : ' + ret);
+      console.log('if');
+      const ret = format(date, displayFormat,{locale : pl});
+      //console.log('return : ' + ret);
       return ret;
     } else {
-      const ret = date.toDateString();
-      console.log('return : ' + ret);
+      console.log('else');
+      //const ret = date.toDateString();
+      const ret = format(date, displayFormat,{locale : pl});
+      //console.log('return : ' + ret);
       return ret;
     }
   }
@@ -74,10 +77,17 @@ export class CalComponent implements OnInit {
   date = new FormControl(new Date());
 
   constructor(private _adapter: DateAdapter<Date>) {
+    const locale : Locale = pl;
+    console.log(locale);
+    console.log(format(new Date(),"EEEEE",{locale}));
     this._adapter.setLocale(pl);
   }
 
   ngOnInit(): void {
+    console.log('ngOnInit!')
+    console.log(this._adapter);
+    console.log(this.exampleHeader);
+    console.log(typeof this.exampleHeader);
   }
 
 }
